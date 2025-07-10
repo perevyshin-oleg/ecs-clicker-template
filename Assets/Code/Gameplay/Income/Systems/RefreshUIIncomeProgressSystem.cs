@@ -19,7 +19,8 @@ namespace Code.Gameplay.Income.Systems
 
         public void Init(IEcsSystems systems)
         {
-            _filter = systems.GetWorld().Filter<IncomeProgressComponent>()
+            _filter = systems.GetWorld()
+                .Filter<IncomeProgressComponent>()
                 .Inc<BusinessComponent>()
                 .Inc<LevelComponent>()
                 .Inc<TotalCostComponent>()

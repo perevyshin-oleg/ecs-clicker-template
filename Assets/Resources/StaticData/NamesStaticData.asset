@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8f4c44e7284ef0a0961ff9905375ed, type: 3}
+  m_Name: NamesStaticData
+  m_EditorClassIdentifier: 
+  <Names>k__BackingField:
+  - <Key>k__BackingField: upgrade_key1
+    <Name>k__BackingField: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435
+      1"
+  - <Key>k__BackingField: upgrade_key2
+    <Name>k__BackingField: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435
+      2"
+  - <Key>k__BackingField: business_key1
+    <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 1"
+  - <Key>k__BackingField: business_key2
+    <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 2"
+  - <Key>k__BackingField: business_key3
+    <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 3"
+  - <Key>k__BackingField: business_key4
+    <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 4"
+  - <Key>k__BackingField: business_key5
+    <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 5"

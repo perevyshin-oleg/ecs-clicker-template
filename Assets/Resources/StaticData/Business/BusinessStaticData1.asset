@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b5add22ec7329a49aea33c93b07c5da, type: 3}
-  m_Name: BusinessConfig1
+  m_Name: BusinessStaticData1
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: "\u0411\u0438\u0437\u043D\u0435\u0441 1"
+  <NameKey>k__BackingField: business_key1
   <InitialLevel>k__BackingField: 1
   <BaseCost>k__BackingField: 3
   <BaseIncome>k__BackingField: 3
   <DurationInSeconds>k__BackingField: 3
   <Upgrades>k__BackingField:
-  - <Name>k__BackingField: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435
-      1"
-    <BaseCost>k__BackingField: 50
+  - <NameKey>k__BackingField: upgrade_key1
+    <Cost>k__BackingField: 50
     <IncomeModificator>k__BackingField: 50
-  - <Name>k__BackingField: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435
-      2"
-    <BaseCost>k__BackingField: 400
+  - <NameKey>k__BackingField: upgrade_key1
+    <Cost>k__BackingField: 400
     <IncomeModificator>k__BackingField: 100

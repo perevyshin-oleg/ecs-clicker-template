@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +12,9 @@ namespace Code.Gameplay.UI
         [SerializeField] private TextMeshProUGUI _IncomeText;
         [SerializeField] private TextMeshProUGUI _LevelUpText;
         [SerializeField] private Slider _progressBar;
-        [SerializeField] private RectTransform _upgradeContainer;
-        [SerializeField] private UpgradeButton _upgradeButtonPrefab;
         [SerializeField] private Button _levelUpButton;
-
-        private readonly Dictionary<UpgradeButton, Action> _createdButtons = new();
+        
+        [field: SerializeField] public RectTransform UpgradesContainer { get;private set; }
 
         public event Action OnLevelUpClicked;
 
@@ -36,36 +33,14 @@ namespace Code.Gameplay.UI
         public void SetLevelUpText(string text) =>
             _LevelUpText.text = text;
 
-        public void AddUpgradeButton(Action onClickEvent)
-        {
-            UpgradeButton button = Instantiate(_upgradeButtonPrefab, _upgradeContainer);
-            button.gameObject.SetActive(true);
-            button.OnClick += onClickEvent;
-            _createdButtons.Add(button, onClickEvent);
-        }
-
         private void OnEnable()
         {
             _levelUpButton.onClick.AddListener(OnLevelUpClick);
-            foreach (var pair in _createdButtons)
-            {
-                if (pair.Key != null)
-                {
-                    pair.Key.OnClick += pair.Value;
-                }
-            }
         }
 
         private void OnDisable()
         {
             _levelUpButton.onClick.RemoveListener(OnLevelUpClick);
-            foreach (var pair in _createdButtons)
-            {
-                if (pair.Key != null)
-                {
-                    pair.Key.OnClick -= pair.Value;
-                }
-            }
         }
 
         private void OnLevelUpClick()

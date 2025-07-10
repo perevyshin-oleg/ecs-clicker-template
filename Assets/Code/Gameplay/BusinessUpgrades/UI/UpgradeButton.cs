@@ -11,20 +11,17 @@ namespace Code.Gameplay.UI
         [SerializeField] private Button _upgradeButton;
             
         public event Action OnClick;
+
+        public void SetText(string text) =>
+            _text.text = text;
         
-        private void OnEnable()
-        {
+        private void OnEnable() =>
             _upgradeButton.onClick.AddListener(OnButtonClick);
-        }
         
-        private void OnDisable()
-        {
+        private void OnDisable() =>
             _upgradeButton.onClick.RemoveListener(OnButtonClick);
-        }
         
-        private void OnButtonClick()
-        {
+        private void OnButtonClick() =>
             OnClick?.Invoke();
-        }
     }
 }

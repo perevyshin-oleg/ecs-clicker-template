@@ -1,6 +1,4 @@
-﻿using System;
-using Code.Gameplay.Balance.Components;
-using Code.Gameplay.Business.Components;
+﻿using Code.Gameplay.Balance.Components;
 using Code.Gameplay.Income.Components;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -17,7 +15,7 @@ namespace Code.Gameplay.Income.Systems
             _requests = systems.GetWorld().Filter<IncomeRequest>()
                 .Inc<TotalIncomeComponent>()
                 .End();
-            
+
             _userBalances = systems.GetWorld().Filter<UserBalanceComponent>().End();
         }
 
@@ -26,14 +24,14 @@ namespace Code.Gameplay.Income.Systems
             foreach (int request in _requests)
             foreach (var balanceEntity in _userBalances)
             {
-                ref var balance = ref _userBalances
+                ref UserBalanceComponent balance = ref _userBalances
                     .GetWorld().GetPool<UserBalanceComponent>().Get(balanceEntity);
-                
-                var income = _requests
+
+                TotalIncomeComponent income = _requests
                     .GetWorld().GetPool<TotalIncomeComponent>().Get(request);
-                
+
                 balance.Coins = Mathf.Clamp(balance.Coins + income.Value, 0, int.MaxValue);
-                
+
                 _requests.GetWorld().GetPool<IncomeRequest>().Del(request);
             }
         }

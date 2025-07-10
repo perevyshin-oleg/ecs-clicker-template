@@ -1,32 +1,30 @@
-using System.Collections.Generic;
 using Code.Gameplay.Balance.Components;
 using Code.Gameplay.Business.Components;
 using Code.Gameplay.Business.StaticData;
-using Code.Gameplay.BusinessUpgrades.Components;
 using Code.Gameplay.Income.Components;
 using Code.Gameplay.LevelUp.Components;
 using Code.Infrastructure.StaticDataProviders;
 using Leopotam.EcsLite;
-using Unity.VisualScripting;
 
 namespace Code.Gameplay.Business.Systems
 {
     public class InitializeBusinessesSystem : IEcsInitSystem
     {
-        private readonly GameStaticData _gameData;
+        private readonly IStaticDataProvider _staticDataProvider;
 
-        public InitializeBusinessesSystem(GameStaticData gameData)
+        public InitializeBusinessesSystem(IStaticDataProvider staticDataProvider)
         {
-            _gameData = gameData;
+            _staticDataProvider = staticDataProvider;
         }
         
         public void Init(IEcsSystems systems)
         {
-            var world = systems.GetWorld();
+            EcsWorld world = systems.GetWorld();
+            GameStaticData gameData = _staticDataProvider.GameStaticData;
             
-            for (var index = 0; index < _gameData.Businesses.Count; index++)
+            for (int index = 0; index < gameData.Businesses.Count; index++)
             {
-                BusinessStaticData businessData = _gameData.Businesses[index];
+                BusinessStaticData businessData = gameData.Businesses[index];
                 
                 int businessEntity = world.NewEntity();
                 
@@ -34,7 +32,7 @@ namespace Code.Gameplay.Business.Systems
                 level.Value = businessData.InitialLevel;
                 
                 ref BusinessComponent business = ref world.GetPool<BusinessComponent>().Add(businessEntity);
-                business.Name = businessData.Name;
+                business.Name = _staticDataProvider.GetNameByKey(businessData.NameKey);
                 business.BusinessId = index;
                 
                 ref BaseIncomeComponent baseIncome = ref world.GetPool<BaseIncomeComponent>().Add(businessEntity);
@@ -47,18 +45,7 @@ namespace Code.Gameplay.Business.Systems
                 progress.Progress = 0;
                 progress.Duration = businessData.DurationInSeconds;
                 
-                ref BusinessUpgradesComponent upgrades = ref world.GetPool<BusinessUpgradesComponent>().Add(businessEntity);
-                foreach (var upgradeData in businessData.Upgrades)
-                {
-                    upgrades.Upgrades = new List<BusinessUpgradesComponent.BusinessUpgrade>();
-                    upgrades.Upgrades.Add(new ()
-                    {
-                        Name = upgradeData.Name,
-                        Cost = upgradeData.BaseCost,
-                        IsPurchased = false
-                    });
-                }
-                
+                world.GetPool<ComposedIncomeModifier>().Add(businessEntity);
                 world.GetPool<TotalIncomeComponent>().Add(businessEntity);
                 world.GetPool<TotalCostComponent>().Add(businessEntity);
             }

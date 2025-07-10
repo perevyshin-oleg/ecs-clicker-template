@@ -11,7 +11,8 @@ namespace Code.Gameplay.LevelUp.Systems
 
         public void Init(IEcsSystems systems)
         {
-            _filter = systems.GetWorld().Filter<TotalCostComponent>()
+            _filter = systems.GetWorld()
+                .Filter<TotalCostComponent>()
                 .Inc<BaseCostComponent>()
                 .Inc<LevelComponent>()
                 .Inc<BusinessComponent>()
@@ -22,9 +23,14 @@ namespace Code.Gameplay.LevelUp.Systems
         {
             foreach (int entity in _filter)
             {
-                BaseCostComponent baseCost = systems.GetWorld().GetPool<BaseCostComponent>().Get(entity);
-                LevelComponent level = systems.GetWorld().GetPool<LevelComponent>().Get(entity);
-                ref TotalCostComponent totalCost = ref systems.GetWorld().GetPool<TotalCostComponent>().Get(entity);
+                BaseCostComponent baseCost = systems.GetWorld()
+                    .GetPool<BaseCostComponent>().Get(entity);
+                
+                LevelComponent level = systems.GetWorld()
+                    .GetPool<LevelComponent>().Get(entity);
+                
+                ref TotalCostComponent totalCost = ref systems
+                    .GetWorld().GetPool<TotalCostComponent>().Get(entity);
                 
                 totalCost.Value = baseCost.Value * (level.Value + 1);
             }

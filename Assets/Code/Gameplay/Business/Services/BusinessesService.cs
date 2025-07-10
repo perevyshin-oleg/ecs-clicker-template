@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Code.Gameplay.BusinessUpgrades.Components;
 using Code.Gameplay.LevelUp.Components;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace Code.Gameplay.Business.Services
 {
@@ -27,15 +25,6 @@ namespace Code.Gameplay.Business.Services
             {
                 OnBusinessAdded?.Invoke(businessModel);
             }
-        }
-
-        public void CreateUpgradeRequest(int businessId, int upgradeId)
-        {
-            int entity = _world.NewEntity();
-            ref var upgradeRequest = ref _world.GetPool<BusinessUpgradeRequest>().Add(entity);
-            upgradeRequest.BusinessId = businessId;
-            upgradeRequest.UpgradeId = upgradeId;
-            
         }
 
         public void CreateLevelUpRequest(int businessId)

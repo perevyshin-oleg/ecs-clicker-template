@@ -1,7 +1,6 @@
 ﻿using Code.Gameplay.Balance.Components;
 using Code.Gameplay.Balance.Services;
 using Code.Gameplay.Business.Components;
-using Code.Gameplay.BusinessUpgrades.Components;
 using Code.Gameplay.LevelUp.Components;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Code.Gameplay.Balance.Systems
         {
             _userBalance = userBalance;
         }
-        
+
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
@@ -33,20 +32,18 @@ namespace Code.Gameplay.Balance.Systems
 
         public void Run(IEcsSystems systems)
         {
-            Debug.Log(_requests.GetEntitiesCount());
-            
-            foreach (var requestEntity in _requests)
+            foreach (int requestEntity in _requests)
             foreach (int balanceEntity in _balances)
             foreach (int businessEntity in _businesses)
             {
                 LevelUpRequest request = _requests.GetWorld().GetPool<LevelUpRequest>().Get(requestEntity);
                 BusinessComponent business = _businesses.GetWorld().GetPool<BusinessComponent>().Get(businessEntity);
-                
+
                 if (business.BusinessId == request.BusinessId)
                 {
                     ref UserBalanceComponent balance =
                         ref _balances.GetWorld().GetPool<UserBalanceComponent>().Get(balanceEntity);
-                    
+
                     ref LevelComponent level =
                         ref _businesses.GetWorld().GetPool<LevelComponent>().Get(businessEntity);
 

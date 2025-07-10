@@ -10,12 +10,12 @@ namespace Code.Gameplay.Business.StaticData
         [Serializable]
         public struct BusinessUpgradeData
         {
-            [field: SerializeField] public string Name { get; private set; }
-            [field: SerializeField] public int BaseCost { get; private set; }
+            [field: SerializeField] public string NameKey { get; private set; }
+            [field: SerializeField] public int Cost { get; private set; }
             [field: SerializeField] public int IncomeModificator { get; private set; }
         }
         
-        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public string NameKey { get; private set; }
         [field: SerializeField] public int InitialLevel { get; private set; }
         [field: SerializeField] public int BaseCost { get; private set; }
         [field: SerializeField] public int BaseIncome { get; private set; }

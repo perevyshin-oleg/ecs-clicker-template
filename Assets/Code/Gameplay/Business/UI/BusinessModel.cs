@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Code.Gameplay.BusinessUpgrades.Components;
 
 namespace Code.Gameplay.Business.Services
 {
@@ -14,16 +11,14 @@ namespace Code.Gameplay.Business.Services
         public int TotalCost { get; private set; }
         public int TotalIncome { get; private set; }
         public float IncomeProgress { get; private set; }
-        public Dictionary<int, BusinessUpgradesComponent.BusinessUpgrade> Upgrades { get; private set; }
 
-        public BusinessModel(int id, string name, int level, int totalCost, int totalIncome, List<BusinessUpgradesComponent.BusinessUpgrade> upgrades)
+        public BusinessModel(int id, string name, int level, int totalCost, int totalIncome)
         {
             Id = id;
             Name = name;
             Level = level;
             TotalCost = totalCost;
             TotalIncome = totalIncome;
-            Upgrades = upgrades.ToDictionary(upgrade => upgrade.Id, upgrade => upgrade);
         }
 
         public void SetLevel(int level)
@@ -58,15 +53,6 @@ namespace Code.Gameplay.Business.Services
             if (IncomeProgress != progress)
             {
                 IncomeProgress = progress;
-                Updated?.Invoke();
-            }
-        }
-
-        public void SetUpgradeActive(int upgradeId, bool active)
-        {
-            if (Upgrades.TryGetValue(upgradeId, out BusinessUpgradesComponent.BusinessUpgrade upgrade))
-            {
-                upgrade.IsPurchased = active;
                 Updated?.Invoke();
             }
         }
